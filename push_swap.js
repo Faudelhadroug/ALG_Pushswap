@@ -1,8 +1,6 @@
 let l = process.argv.slice(2);
 let la = [];
 l.map((el) => la.push(parseInt(el)));
-// let lz = [];
-// l.map((el) => lz.push(parseInt(el)));
 let lb = [];
 let algoUsed = [];
 const sa = () => {
@@ -26,16 +24,21 @@ const sc = () => {
 
 const pa = () => {
   [key1] = lb
-  if(key1 !== null) return;
-  la.unshift(key1);
-  lb.splice(0, 1);
+  if(!key1 !== null)
+  {
+    la.unshift(key1);
+    lb.splice(0, 1);   
+  }
 }
 
 const pb = () => {
   [key1] = la
-  if(key1 !== null) return;
-  lb.unshift(key1);
-  la.splice(0, 1);
+  console.log('key ',key1);
+  if(key1 !== null)
+  {
+    lb.unshift(key1);
+    la.splice(0, 1);
+  }
 }
 
 const rra = () => {
@@ -67,6 +70,8 @@ const rr = () => {
 const sort = () => {
   if(la.length > 1 || lb.length > 0)
   {
+    console.log('la => ', la)
+    console.log('lb => ', lb)
     let sorted = true;
     let half = la.length / 2
     const min = Math.min(...la)
@@ -91,11 +96,12 @@ const sort = () => {
       let k = lb.length
       for(let j = 0; j < k; j++)
       {
+        algoUsed.push('pa');
         pa();
-        console.log('j=> ', j)
-        console.log('lb.length => ', lb.length)
       }
-      console.log('A sorted => ', la)
+      console.log('A sorted => ', la);
+      console.log(algoUsed);
+      console.log(algoUsed.length);
     }
     else 
     {
@@ -106,103 +112,30 @@ const sort = () => {
 }
 
 const myAlgo = (minPosition, maxPosition, half) => {
-  if(minPosition - half > 0 && maxPosition - half > 0 && minPosition - half > maxPosition - half)
+  if(minPosition - half > 0)
   {
-    // Le plus petit numéro est le plus proche de la fin de l'array est le plus gros numéro est plus proche du millieu
-    console.log('MIN more close to the end of the array')
-    console.log(la)
+    //console.log('MIN more close to the end of the array')
     for(let i = minPosition; i !== la.length; i++)
     {
+      algoUsed.push('rra');
       rra();
     }
+    algoUsed.push('pb');
     pb();
     sort();
   }
-  // else if(minPosition - half > 0 && maxPosition - half > 0 && maxPosition - half > minPosition - half)
-  // {
-  //   // Le plus gros numéro est le plus proche de la fin de l'array est le plus petit numéro est plus proche du millieu
-
-  //   console.log('MAX more close to the end of the array #1')
-  //   if(maxPosition === la.length - 1)
-  //   {
-  //     console.log('au bout')
-  //   } else {
-  //     console.log('ifelseifelse')
-
-  //     // for(let i = maxPosition; i < la.length; i++)
-  //     // {
-  //     //   rra();
-  //     // }
-  //     // sort();
-  //   }
-  // }
   else
   {
-    if(minPosition - half < 0 && maxPosition - half < 0 && minPosition - half < maxPosition - half)
-    {
-      // Le plus petit numéro est le plus proche du début de l'array est le plus gros numéro est plus proche du millieu
-      console.log('MIN more close to the start of the array x ')
-      console.log(minPosition)
-      for(let m = minPosition; m !== 0; m--)
+      //console.log('MIN more close to the start of the array x ')
+      for(let i = minPosition; i !== 0; i--)
       {
-        console.log('tes')
+        algoUsed.push('ra');
         ra();
       }
+      algoUsed.push('pb');
       pb();
       sort();
     }
-    // else if(minPosition - half < 0 && maxPosition - half < 0 && maxPosition - half < minPosition - half)
-    // {
-    //   // Le plus gros numéro est le plus proche du début de l'array est le plus gros numéro est plus proche du millieu
-    //   console.log('MAX more close to the start of the array')
-    // }
-    else
-    {
-      if(minPosition - half < 0 && minPosition < la.length - maxPosition)
-      {
-        // Le plus petit numéro est le plus proche du début de l'array est le plus gros numéro est plus proche du millieu
-        console.log('MIN more close to the start of the array than MAX')
-        console.log(la)
-        for(let i = minPosition; i !== 0; i--)
-        {
-          ra();
-        }
-        pb();
-        sort();
-      }
-      // else if(maxPosition - half < 0 && maxPosition < la.length - minPosition)
-      // {
-      //   // Le plus gros numéro est le plus proche du début de l'array est le plus gros numéro est plus proche du millieu
-      //   console.log('MAX more close to the start of the array than MIN')
-      // }
-      else
-      { 
-        console.log('MIN more close to the end of the array than MAX lastif')  
-        for(let i = minPosition; i !== la.length; i++)
-        {
-          rra();
-        }
-        pb();
-        sort();
-        // console.log('entry')  
-        // if(maxPosition - half < 0 && maxPosition <= la.length - minPosition)
-        // {
-        //   // Le plus petit numéro est le plus proche de la fin de l'array est le plus gros numéro est plus proche du millieu
-        //   console.log('MIN more close to the end of the array than MAX lastif')
-        // }
-        // else if(minPosition - half < 0 && minPosition <= la.length - maxPosition)
-        // {
-        //   // Le plus gros numéro est le plus proche de la fin de l'array est le plus gros numéro est plus proche du millieu
-        //   console.log('MAX more close to the end of the array than MIN lastelseif #1')
-        // }
-        // else
-        // {
-        //   console.log('entry2')
-        // }
-      }
-    }
   }
-}
-      
+  
 sort();
-
