@@ -33,7 +33,6 @@ const pa = () => {
 
 const pb = () => {
   [key1] = la
-  console.log('key ',key1);
   if(key1 !== null)
   {
     lb.unshift(key1);
@@ -70,8 +69,6 @@ const rr = () => {
 const sort = () => {
   if(la.length > 1 || lb.length > 0)
   {
-    console.log('la => ', la)
-    console.log('lb => ', lb)
     let sorted = true;
     let half = la.length / 2
     const min = Math.min(...la)
@@ -89,7 +86,10 @@ const sort = () => {
     if(sorted && lb.length === 0)
     {
       // finis 
-      console.log('sorted')
+      if(algoUsed.length === 0) console.log("");
+      else {
+        console.log(...algoUsed);
+      }
     }
     else if (la.length === 0)
     {
@@ -99,16 +99,14 @@ const sort = () => {
         algoUsed.push('pa');
         pa();
       }
-      console.log('A sorted => ', la);
-      console.log(algoUsed);
-      console.log(algoUsed.length);
+      console.log(...algoUsed);
     }
     else 
     {
       myAlgo(minPosition, maxPosition, half)
     }
   }
-  else return;
+  else return console.log("");
 }
 
 const myAlgo = (minPosition, maxPosition, half) => {
